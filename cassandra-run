@@ -8,7 +8,10 @@ echo "IP Address is: $ADDR"
 SEED=${SEED:=$ADDR}
 echo "Seed is: $SEED"
 
-if [ ! -f /root/.cassconfig ]; then
+# install configuration
+if [ -n "$CONF_FILE" ]; then
+  cp $CONF_FILE /opt/cassandra/conf/cassandra.yaml
+elif [ ! -f /root/.cassconfig ]; then
     echo "Filling in the blanks inside cassandra.yaml"
     # Target files
     ENV_FILE=/opt/cassandra/conf/cassandra-env.sh

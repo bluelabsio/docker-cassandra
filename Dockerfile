@@ -25,7 +25,8 @@ RUN	\
     cp /src/agent-run /etc/service/agent/run
 
 # Expose ports
-EXPOSE 7199 7000 7001 9160 9042
+# JMX, transport, secure transport, thrift, client, OpsCenter agent
+EXPOSE 7199 7000 7001 9160 9042 61621
 
 WORKDIR /opt/cassandra
 
