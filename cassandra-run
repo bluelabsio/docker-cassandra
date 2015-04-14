@@ -10,15 +10,10 @@ echo "Seed is: $SEED"
 
 # install configuration
 if [ -n "$CONF_FILE" ]; then
-  cp $CONF_FILE /opt/cassandra/conf/cassandra.yaml
-elif [ ! -f /root/.cassconfig ]; then
+    cp $CONF_FILE /opt/cassandra/conf/cassandra.yaml
+else
     echo "Filling in the blanks inside cassandra.yaml"
-    # Target files
-    ENV_FILE=/opt/cassandra/conf/cassandra-env.sh
     CONF_FILE=/opt/cassandra/conf/cassandra.yaml
-    # Add heap settings
-    # echo MAX_HEAP_SIZE="4G" >> $ENV_FILE
-    # echo HEAP_NEWSIZE="800M" >> $ENV_FILE
     # Add broadcast IPs
     echo "listen_address: $ADDR" >> $CONF_FILE
     echo "broadcast_rpc_address: $ADDR" >> $CONF_FILE
@@ -28,7 +23,15 @@ elif [ ! -f /root/.cassconfig ]; then
     echo "  - class_name: org.apache.cassandra.locator.SimpleSeedProvider" >> $CONF_FILE
     echo "    parameters:" >> $CONF_FILE
     echo "      - seeds: \"$SEED\"" >> $CONF_FILE
-    touch /root/.cassconfig
+fi
+
+if [ -n "$ENV_FILE" ]; then
+    cp $ENV_FILE /opt/cassandra/conf/cassandra-env.sh
+else
+    # Add heap settings
+    ENV_FILE=/opt/cassandra/conf/cassandra-env.sh
+    echo MAX_HEAP_SIZE="4G" >> $ENV_FILE
+    echo HEAP_NEWSIZE="800M" >> $ENV_FILE
 fi
 
 # Start server
