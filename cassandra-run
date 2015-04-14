@@ -17,8 +17,8 @@ elif [ ! -f /root/.cassconfig ]; then
     ENV_FILE=/opt/cassandra/conf/cassandra-env.sh
     CONF_FILE=/opt/cassandra/conf/cassandra.yaml
     # Add heap settings
-    echo MAX_HEAP_SIZE="4G" >> $ENV_FILE
-    echo HEAP_NEWSIZE="800M" >> $ENV_FILE
+    # echo MAX_HEAP_SIZE="4G" >> $ENV_FILE
+    # echo HEAP_NEWSIZE="800M" >> $ENV_FILE
     # Add broadcast IPs
     echo "listen_address: $ADDR" >> $CONF_FILE
     echo "broadcast_rpc_address: $ADDR" >> $CONF_FILE

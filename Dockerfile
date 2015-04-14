@@ -2,6 +2,10 @@ FROM abh1nav/java7
 
 MAINTAINER Abhinav Ajgaonkar <abhinav316@gmail.com>
 
+RUN apt-get update && \
+    apt-get -qy install sysstat && \
+    apt-get clean
+
 # Download and extract Cassandra
 RUN \
   mkdir /opt/cassandra; \
